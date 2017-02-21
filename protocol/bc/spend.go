@@ -35,6 +35,10 @@ func (s *Spend) Arguments() [][]byte {
 	return s.witness.Arguments
 }
 
+func (s *Spend) SetArguments(args [][]byte) {
+	s.witness.Arguments = args
+}
+
 func newSpend(spentOutput, data *EntryRef) *Spend {
 	s := new(Spend)
 	s.body.SpentOutput = spentOutput

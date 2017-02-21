@@ -29,8 +29,10 @@ type Template struct {
 	AllowAdditional bool `json:"allow_additional_actions"`
 }
 
-func (t *Template) Hash(idx uint32) bc.Hash {
-	return t.Transaction.SigHash(idx)
+// Hash produces the txsighash for a specific input (given as an entry
+// hash)
+func (t *Template) Hash(inpHash bc.Hash) bc.Hash {
+	return t.Transaction.SigHash(inpHash)
 }
 
 // SigningInstruction gives directions for signing inputs in a TxTemplate.

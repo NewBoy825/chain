@@ -3,6 +3,7 @@ package bc
 import (
 	"io"
 
+	"chain/crypto/sha3pool"
 	"chain/encoding/blockchain"
 )
 
@@ -35,6 +36,17 @@ func NewTransaction(hdrRef *EntryRef) *Transaction {
 
 func (tx *Transaction) ID() Hash {
 	return tx.Header.Hash()
+}
+
+func (tx *Transaction) SigHash(inpHash Hash) (hash Hash) {
+	hasher := sha3pool.Get256()
+	defer sha3pool.Put256(hasher)
+
+	hasher.Write(inpHash[:])
+	hash = tx.ID()
+	hasher.Write(hash[:])
+	hasher.Read(hash[:])
+	return hash
 }
 
 func (tx *Transaction) Results() []*EntryRef {

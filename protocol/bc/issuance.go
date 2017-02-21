@@ -55,6 +55,10 @@ func (iss *Issuance) Arguments() [][]byte {
 	return iss.witness.Arguments
 }
 
+func (iss *Issuance) SetArguments(args [][]byte) {
+	iss.witness.Arguments = args
+}
+
 func newIssuance(anchor *EntryRef, value AssetAmount, data *EntryRef) *Issuance {
 	iss := new(Issuance)
 	iss.body.Anchor = anchor
